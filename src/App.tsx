@@ -25,7 +25,7 @@ function App() {
       Phone: Phone.current.value,
     };
     console.log(obj);
-    arr.push(obj);
+    setArr(arr.push(obj));
     localStorage.setItem("arr", JSON.stringify(arr));
     console.log(arr);
   }
