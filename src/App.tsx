@@ -3,14 +3,17 @@ import { useRef, useState } from "react";
 function App() {
   let Name: any = useRef("");
   let Phone: any = useRef(0);
-  let [arr, setArr]: (object | null | string)[] = useState(
-    localStorage.getItem("arr") ? JSON.parse(localStorage.getItem("arr")) : []
+  let local: any = localStorage.getItem("arr");
+  let [arr, setArr]: any[] = useState(
+    localStorage.getItem("arr") ? JSON.parse(local) : []
   );
   console.log(arr);
-
-  interface ObjType {
-    Name: string;
+  interface Phone {
     Phone: number;
+  }
+
+  interface ObjType extends Phone {
+    Name: string;
   }
 
   let obj: ObjType;
@@ -27,13 +30,36 @@ function App() {
     console.log(arr);
   }
 
+  type Point = {
+    x: number;
+    y: number;
+  };
+
+  type Color = "RED" | "GREEN" | "BLUE";
+
+  type style = {
+    borderWidth: number;
+    color: Color;
+  };
+
+  type StyledPoint = Point & style;
+
+  let point: StyledPoint = {
+    x: 10,
+    y: 10,
+    borderWidth: 2,
+    color: "BLUE",
+  };
+
+  console.log(point);
+
   return (
     <>
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="text-center lg:text-left">
+          <div className="text-center lg:text-left glass p-8 rounded-xl max-w-[384px] lg:max-w-full lg:py-[88px]">
             <h1 className="text-5xl font-bold">Add contact!</h1>
-            <p className="py-6">
+            <p className="px-6 py-6  max-w-[425.6px]">
               Enter phone number, name, surname to add contact! all inputs arr
               required
             </p>
@@ -71,7 +97,7 @@ function App() {
         </div>
       </div>
       <p className="text-xl text-center text-white py-5">Contacts:</p>
-      {arr.map((prod, index) => {
+      {arr.map((prod: any, index: any) => {
         return (
           <div
             className="flex justify-center items-center bg-blue-600 max-w-[500px] mx-auto rounded-xl my-5 py-5 gap-5 text-white"
